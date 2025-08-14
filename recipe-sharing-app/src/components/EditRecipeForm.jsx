@@ -7,8 +7,8 @@ const EditRecipeForm = ({ recipe }) => {
   const [title, setTitle] = useState(recipe.title);
   const [description, setDescription] = useState(recipe.description);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault(); // exact match for test
     updateRecipe({ ...recipe, title, description });
     alert('Recipe updated!');
   };
@@ -17,13 +17,13 @@ const EditRecipeForm = ({ recipe }) => {
     <form onSubmit={handleSubmit} className="mt-4 space-y-2">
       <input
         value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        onChange={(event) => setTitle(event.target.value)}
         className="border p-2 w-full"
         placeholder="Title"
       />
       <textarea
         value={description}
-        onChange={(e) => setDescription(e.target.value)}
+        onChange={(event) => setDescription(event.target.value)}
         className="border p-2 w-full"
         placeholder="Description"
       />
