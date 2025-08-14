@@ -5,7 +5,6 @@ export const useRecipeStore = create((set, get) => ({
   favorites: [],
   recommendations: [],
 
-  // Recipe management
   addRecipe: (recipe) =>
     set((state) => ({ recipes: [...state.recipes, recipe] })),
   updateRecipe: (updatedRecipe) =>
@@ -20,7 +19,6 @@ export const useRecipeStore = create((set, get) => ({
       favorites: state.favorites.filter((favId) => favId !== id), // remove from favorites if deleted
     })),
 
-  // Favorites management
   addFavorite: (recipeId) =>
     set((state) => ({ favorites: [...state.favorites, recipeId] })),
   removeFavorite: (recipeId) =>
@@ -28,7 +26,6 @@ export const useRecipeStore = create((set, get) => ({
       favorites: state.favorites.filter((id) => id !== recipeId),
     })),
 
-  // Recommendations (mock example)
   generateRecommendations: () =>
     set((state) => {
       const recommended = state.recipes.filter(
@@ -37,7 +34,6 @@ export const useRecipeStore = create((set, get) => ({
       return { recommendations: recommended };
     }),
 
-  // Search/filter (optional for search feature)
   searchTerm: '',
   setSearchTerm: (term) => set({ searchTerm: term }),
   filteredRecipes: [],
