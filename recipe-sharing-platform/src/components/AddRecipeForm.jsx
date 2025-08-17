@@ -1,5 +1,22 @@
 import React, { useState } from "react";
 
+
+export const validate = ({ title, ingredients, steps }) => {
+  let formErrors = {};
+  if (!title.trim()) formErrors.title = "Title is required.";
+  if (!ingredients.trim()) {
+    formErrors.ingredients = "Ingredients are required.";
+  } else {
+    const ingredientList = ingredients.split(",").map((i) => i.trim());
+    if (ingredientList.length < 2) {
+      formErrors.ingredients = "Please provide at least 2 ingredients.";
+    }
+  }
+  if (!steps.trim()) formErrors.steps = "Preparation steps are required.";
+
+  return formErrors;
+};
+
 const AddRecipeForm = () => {
   const [title, setTitle] = useState("");
   const [ingredients, setIngredients] = useState("");
@@ -9,19 +26,7 @@ const AddRecipeForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Validation
-    let formErrors = {};
-    if (!title.trim()) formErrors.title = "Title is required.";
-    if (!ingredients.trim()) {
-      formErrors.ingredients = "Ingredients are required.";
-    } else {
-      const ingredientList = ingredients.split(",").map((i) => i.trim());
-      if (ingredientList.length < 2) {
-        formErrors.ingredients = "Please provide at least 2 ingredients.";
-      }
-    }
-    if (!steps.trim()) formErrors.steps = "Preparation steps are required.";
-
+    const formErrors = validate({ title, ingredients, steps });
     setErrors(formErrors);
 
     if (Object.keys(formErrors).length === 0) {
@@ -33,6 +38,7 @@ const AddRecipeForm = () => {
 
       console.log("Recipe Submitted:", newRecipe);
 
+     
       setTitle("");
       setIngredients("");
       setSteps("");
@@ -59,7 +65,9 @@ const AddRecipeForm = () => {
 
         {/* Ingredients */}
         <div>
-          <label className="block text-gray-700 font-medium mb-1">Ingredients (comma separated)</label>
+          <label className="block text-gray-700 font-medium mb-1">
+            Ingredients (comma separated)
+          </label>
           <textarea
             className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             rows="3"
@@ -74,7 +82,9 @@ const AddRecipeForm = () => {
 
         {/* Steps */}
         <div>
-          <label className="block text-gray-700 font-medium mb-1">Preparation Steps (line by line)</label>
+          <label className="block text-gray-700 font-medium mb-1">
+            Preparation Steps (line by line)
+          </label>
           <textarea
             className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             rows="5"
