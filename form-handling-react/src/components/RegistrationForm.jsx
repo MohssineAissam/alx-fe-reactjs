@@ -7,7 +7,7 @@ function RegistrationForm() {
     password: ""
   });
 
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState({});
 
   const { username, email, password } = formData;
 
@@ -19,12 +19,24 @@ function RegistrationForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!username || !email || !password) {
-      setError("All fields are required!");
+    const newErrors = {};
+
+    if (!username) {
+      newErrors.username = "Username is required!";
+    }
+    if (!email) {  
+      newErrors.email = "Email is required!";
+    }
+    if (!password) { 
+      newErrors.password = "Password is required!";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors); 
       return;
     }
 
-    setError("");
+    setErrors({});
     console.log("Form submitted:", formData);
     alert("User Registered!");
   };
@@ -33,13 +45,15 @@ function RegistrationForm() {
     <form onSubmit={handleSubmit} className="space-y-4 p-4 border rounded w-80 mx-auto">
       <h2 className="text-xl font-bold">User Registration</h2>
 
-      {error && <p className="text-red-500">{error}</p>}
+      {errors.username && <p className="text-red-500">{errors.username}</p>}
+      {errors.email && <p className="text-red-500">{errors.email}</p>}
+      {errors.password && <p className="text-red-500">{errors.password}</p>}
 
       <input
         type="text"
         name="username"
         placeholder="Username"
-        value={username} 
+        value={username}
         onChange={handleChange}
         className="w-full p-2 border rounded"
       />
@@ -57,7 +71,7 @@ function RegistrationForm() {
         type="password"
         name="password"
         placeholder="Password"
-        value={password} 
+        value={password}
         onChange={handleChange}
         className="w-full p-2 border rounded"
       />
