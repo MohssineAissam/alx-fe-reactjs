@@ -1,10 +1,10 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
-import Profile from "./components/Profile";
-import BlogPost from "./pages/BlogPost";
 import Login from "./pages/Login";
-import ProtectedRoute from "./pages/ProtectedRoute";
+import BlogPost from "./pages/BlogPost";
+import Profile from "./components/Profile";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -23,8 +23,8 @@ function App() {
           }
         />
 
-        {/* 🔹 Dynamic Blog Post */}
-        <Route path="/blog/:postId" element={<BlogPost />} />
+        {/* 🔹 Dynamic Blog Route (fixed to use :id) */}
+        <Route path="/blog/:id" element={<BlogPost />} />
 
         {/* Login */}
         <Route path="/login" element={<Login />} />
