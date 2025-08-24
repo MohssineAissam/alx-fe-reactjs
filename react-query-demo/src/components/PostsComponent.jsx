@@ -9,19 +9,21 @@ const fetchPosts = async () => {
 function PostsComponent() {
   const {
     data,
-    error,
     isLoading,
     isFetching,
+    isError,
+    error,
     refetch,
   } = useQuery({
     queryKey: ["posts"],
     queryFn: fetchPosts,
-    refetchOnWindowFocus: true, 
-    keepPreviousData: true,     
+    // 🔹 Advanced options
+    refetchOnWindowFocus: true,
+    keepPreviousData: true,
   });
 
   if (isLoading) return <p>Loading posts...</p>;
-  if (error) return <p className="text-red-500">Error: {error.message}</p>;
+  if (isError) return <p className="text-red-500">Error: {error.message}</p>;
 
   return (
     <div className="p-4 border rounded w-full max-w-2xl">
